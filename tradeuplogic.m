@@ -1,4 +1,4 @@
-function [skinspostdata,prizes] = tradeuplogic(skindata,avgfloat)
+function [skinspostdata,prizes,outcomenumbers] = tradeuplogic(skindata,avgfloat)
     %Split skindata to components
     [collection, remain] = strtok(skindata, char(10));
     [rarity, remain] = strtok(remain(2:end), char(10));
