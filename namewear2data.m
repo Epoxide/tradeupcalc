@@ -67,4 +67,3 @@ function [skindata] = namewear2data(skinname,wear)
     end
     skindata = [collection char(10) rarity char(10) float_min char(10) float_max char(10) marketprize char(10) opprize];
 end
-
