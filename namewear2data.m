@@ -14,6 +14,7 @@ function [skindata] = namewear2data(skinname,wear)
     %Match skin name with data
     n = 1;
     Delimiter = '';
+    skinsarrayend = skins(end);
     for i = 1:length(skins)
         tf = strcmp(skins{i}, Delimiter);
         if tf == 1
@@ -27,6 +28,17 @@ function [skindata] = namewear2data(skinname,wear)
                break
             end
             n = skinend + 1;
+        end
+        tf = strcmp(skins{i}, skinsarrayend(1));
+        if tf == 1
+            individualskin = skins(n:end);
+            weaponname = individualskin{1};
+            skintypename = individualskin{2};
+            individualskinname = [weaponname ' ' skintypename];
+            tf = strcmp(skinname, individualskinname);
+            if tf == 1
+               break
+            end
         end
     end
     %Data
