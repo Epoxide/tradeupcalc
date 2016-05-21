@@ -20,9 +20,7 @@ function [skindata] = namewear2data(skinname,wear)
             skinend = i;
             individualskin = skins(n:skinend-1);
             weaponname = individualskin{1};
-            weaponname = weaponname(1:end);
             skintypename = individualskin{2};
-            skintypename = skintypename(1:end);
             individualskinname = [weaponname ' ' skintypename];
             tf = strcmp(skinname, individualskinname);
             if tf == 1
