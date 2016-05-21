@@ -34,4 +34,3 @@ function [wears] = float2wears(float_min, float_max)
         wears{1} = [];
     end
 end
-
