@@ -126,33 +126,47 @@ function [skinspostdata] = tradeuplogic(skindata,avgfloat)
         wears = [wears; wear; char(10)];
     end
     wears = wears(1:end-1);
-    tradeupwears = [];
-    for i = 1:length(wears)
-        tf = strcmp(wears{i}, char(10));
-        if tf == 1
-            wears{i} = [];
-        end
-        if isempty(wears{i}) == 0
-            tradeupwears = [tradeupwears; wears{i}];
-        end
-    end
-    tradeupwearssize = size(tradeupwears);
-    outcomenumbers = tradeupwearssize(1);
-    
+%     tradeupwears = [];
+%     for i = 1:length(wears)
+%         tf = strcmp(wears{i}, char(10));
+%         if tf == 1
+%             wears{i} = [];
+%         end
+%         if isempty(wears{i}) == 0
+%             tradeupwears = [tradeupwears; wears{i}];
+%         end
+%     end
+%     tradeupwearssize = size(tradeupwears);
+%     outcomenumbers = tradeupwearssize(1);
+    prizes = [];
+    n = 1;
     for i = 1:length(tradeupskinsc)
-        tf = strcmp(tradeupskinsc{i}, char(10));
-        if tf == 1
-            skinend = i;
-            individualskin = skins(n:skinend-1);
-            weaponname = individualskin{1};
-            skintypename = individualskin{2};
-            individualskinname = [weaponname ' ' skintypename];
-            tf = strcmp(skinname, individualskinname);
-            if tf == 1
-                break
-            end
-            n = skinend + 1;
-        end
+       tf = strcmp(tradeupskinsc{i}, char(10));
+       if tf == 1
+          skinend = i;
+          individualskin = tradeupskinsc(n:skinend-1);
+          m = 7;
+          for j = 1:5
+              if isempty(wears{j}) == 0
+                  marketprize = individualskin{m};
+                  opprize = individualskin{m+1};
+                  m = m + 2;
+              end
+          end
+          n = skinend + 1;
+       end
+       tf = strcmp(tradeupskinsc{i}, tradeupskinscarrayend{1});
+       if tf == 1
+          individualskin = tradeupskinsc(n:end);
+                    m = 7;
+          for j = 1:5
+              if isempty(wears{j}) == 0
+                  marketprize = individualskin{m};
+                  opprize = individualskin{m+1};
+                  m = m + 2;
+              end
+          end
+       end
     end
 end
 
