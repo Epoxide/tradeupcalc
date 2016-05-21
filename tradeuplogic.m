@@ -136,9 +136,11 @@ function [skinspostdata] = tradeuplogic(skindata,avgfloat)
             tradeupwears = [tradeupwears; wears{i}];
         end
     end
+    celltradeupwears = cellstr(tradeupwears);
     tradeupwearssize = size(tradeupwears);
     outcomenumbers = tradeupwearssize(1);
-    prizes = cell(outcomenumbers*2,1);
+    prizes = cell(outcomenumbers*8,1);
+    celloutcomefloats = cellstr(num2str(outcomefloats));
     n = 1;
     for i = 1:length(tradeupskinsc)
         tf = strcmp(tradeupskinsc{i}, char(10));
@@ -146,13 +148,23 @@ function [skinspostdata] = tradeuplogic(skindata,avgfloat)
             skinend = i;
             individualskin = tradeupskinsc(n:skinend-1);
             m = 7;
+            k = 1;
+            l = 1;
             for j = 1:5
                 if isempty(wears{j}) == 0
                     marketprize = individualskin{m};
                     opprize = individualskin{m+1};
-                    prizes{m-6} = marketprize;
-                    prizes{m-5} = opprize;
+                    prizes{k} = individualskin{n};
+                    prizes{k+1} = individualskin{n+1};
+                    prizes{k+2} = individualskin{n+2};
+                    prizes{k+3} = individualskin{n+3};
+                    prizes{k+4} = celloutcomefloats(l);
+                    prizes{k+5} = celltradeupwears{l};
+                    prizes{k+6} = marketprize;
+                    prizes{k+7} = opprize;
                     m = m + 2;
+                    k = k + 8;
+                    l = l + 1;
                 end
             end
             n = skinend + 1;
@@ -165,6 +177,12 @@ function [skinspostdata] = tradeuplogic(skindata,avgfloat)
                 if isempty(wears{j}) == 0
                     marketprize = individualskin{m};
                     opprize = individualskin{m+1};
+                    prizes{end-7} = individualskin{1};
+                    prizes{end-6} = individualskin{2};
+                    prizes{end-5} = individualskin{3};
+                    prizes{end-4} = individualskin{4};
+                    prizes{end-3} = celloutcomefloats{end};
+                    prizes{end-2} = celltradeupwears{end};
                     prizes{end-1} = marketprize;
                     prizes{end} = opprize;
                     m = m + 2;
@@ -172,6 +190,4 @@ function [skinspostdata] = tradeuplogic(skindata,avgfloat)
             end
         end
     end
-    
 end
-
