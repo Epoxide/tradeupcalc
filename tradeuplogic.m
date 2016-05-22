@@ -77,8 +77,7 @@ function [skinspostdata,prices,outcomenumbers] = tradeuplogic(skindata,avgfloat)
            end
            n = skinend + 1;
        end
-       tf = strcmp(tradeupskins{i}, tradeupskinsarrayend{1});
-       if tf == 1
+       if i == length(tradeupskins)
             individualskin = tradeupskins(n:end);
             collectionname = individualskin{4};
             tf = strcmp(collection, collectionname);
@@ -102,8 +101,7 @@ function [skinspostdata,prices,outcomenumbers] = tradeuplogic(skindata,avgfloat)
           floats = [floats; float_min; float_max];
           n = skinend + 1;
        end
-       tf = strcmp(tradeupskinsc{i}, tradeupskinscarrayend{1});
-       if tf == 1
+       if i == length(tradeupskinsc)
           individualskin = tradeupskinsc(n:end);
           float_min = num2str(individualskin{5});
           float_max = num2str(individualskin{6});
@@ -127,17 +125,33 @@ function [skinspostdata,prices,outcomenumbers] = tradeuplogic(skindata,avgfloat)
     end
     wears = wears(1:end-1);
     tradeupwears = [];
+    n = 0;
     for i = 1:length(wears)
         tf = strcmp(wears{i}, char(10));
         if tf == 1
             wears{i} = [];
         end
         if isempty(wears{i}) == 0
-            tradeupwears = [tradeupwears; wears{i}];
+            n = n + 1;
+            tradeupwears = [tradeupwears wears{i} char(10)];
         end
     end
-    celltradeupwears = cellstr(tradeupwears);
-    tradeupwearssize = size(tradeupwears);
+    tradeupwears = tradeupwears(1:end-1);
+    celltradeupwears = cell(n,1);
+    n = 1;
+    m = 1;
+    for i = 1:length(tradeupwears)
+        tf = strcmp(tradeupwears(i), char(10));
+        if tf == 1
+            celltradeupwears{m} = tradeupwears(n:i-1);
+            n = i + 1;
+            m = m + 1;
+        end
+        if i == length(tradeupwears)
+           celltradeupwears{m} = tradeupwears(n:end); 
+        end
+    end
+    tradeupwearssize = size(celltradeupwears);
     outcomenumbers = tradeupwearssize(1);
     prices = cell(outcomenumbers*9-1,1);
     celloutcomefloats = cellstr(num2str(outcomefloats,'%.4f'));
@@ -170,8 +184,7 @@ function [skinspostdata,prices,outcomenumbers] = tradeuplogic(skindata,avgfloat)
             end
             n = skinend + 1;
         end
-        tf = strcmp(tradeupskinsc{i}, tradeupskinscarrayend{1});
-        if tf == 1
+        if i == length(tradeupskinsc)
             individualskin = tradeupskinsc(n:end);
             m = 7;
             for j = 1:5
