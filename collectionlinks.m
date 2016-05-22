@@ -1,9 +1,16 @@
+clearvars; clc;
 %Directories
 addpath('./Text_Files');
 %Save html file
-filename = [cd '/Text_Files/The_Chop_Shop_Collection']; %Change
-outputfile = [cd '/Text_Files/The_Chop_Shop_Collection.txt']; %Change
-URL = 'https://csgostash.com/collection/The+Chop+Shop+Collection'; %Change
+collectionname = inputdlg({'Name of collection:'}, 'Prompt', 1, {'The+Chop+Shop+Collection'});
+collectionname = char(collectionname);
+folderexist = exist(['../MATLAB/Text_Files/' collectionname]);
+if folderexist == 0
+    mkdir(['../MATLAB/Text_Files/' collectionname]);
+end
+filename = [cd '/Text_Files/' collectionname '/' collectionname]; %Change
+outputfile = [cd '/Text_Files/' collectionname '/' collectionname '.txt']; %Change
+URL = ['https://csgostash.com/collection/' collectionname]; %Change
 outfilename = websave(filename,URL);
 %Open file
 fileID = fopen(outfilename,'r');
