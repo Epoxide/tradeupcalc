@@ -1,7 +1,7 @@
 function [skindata] = namewear2data(skinname,wear)
     %Directories
     addpath('./Text_Files');
-    filename = [cd '/Text_Files/skintest.txt'];
+    filename = [cd '/Text_Files/skintest2.txt'];
     %Open file
     fileID = fopen(filename,'r');
     %Scan file to array
@@ -11,6 +11,7 @@ function [skindata] = namewear2data(skinname,wear)
     fclose(fileID);
     %Output variable
     skins = [dataArray{1:end}];
+    skins = skins(2:end);
     %Match skin name with data
     n = 1;
     Delimiter = '';
@@ -56,8 +57,8 @@ function [skindata] = namewear2data(skinname,wear)
     n = 7;
     for i = 1:5
        if isempty(wears{i}) == 0
-           marketprize = individualskin{n};
-           opprize = individualskin{n+1};
+           marketprice = individualskin{n};
+           opprice = individualskin{n+1};
            n = n + 2;
        end
        tf = strcmp(wear, wears{i});
@@ -65,5 +66,5 @@ function [skindata] = namewear2data(skinname,wear)
            break
        end
     end
-    skindata = [collection char(10) rarity char(10) float_min char(10) float_max char(10) marketprize char(10) opprize];
+    skindata = [collection char(10) rarity char(10) float_min char(10) float_max char(10) marketprice char(10) opprice];
 end
