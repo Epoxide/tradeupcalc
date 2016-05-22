@@ -1,4 +1,4 @@
-function [skinspostdata,prizes,outcomenumbers] = tradeuplogic(skindata,avgfloat)
+function [skinspostdata,prices,outcomenumbers] = tradeuplogic(skindata,avgfloat)
     %Split skindata to components
     [collection, remain] = strtok(skindata, char(10));
     [rarity, remain] = strtok(remain(2:end), char(10));
@@ -23,7 +23,7 @@ function [skinspostdata,prizes,outcomenumbers] = tradeuplogic(skindata,avgfloat)
     
     %Directories
     addpath('./Text_Files');
-    filename = [cd '/Text_Files/skintest.txt'];
+    filename = [cd '/Text_Files/skintest2.txt'];
     %Open file
     fileID = fopen(filename,'r');
     %Scan file to array
@@ -38,7 +38,7 @@ function [skinspostdata,prizes,outcomenumbers] = tradeuplogic(skindata,avgfloat)
     Delimiter = '';
     tradeupskins = [];
     skinsarrayend = skins(end);
-    for i = 1:length(skins)
+    for i = 2:length(skins)
         tf = strcmp(skins{i}, Delimiter);
         if tf == 1
             skinend = i;
@@ -139,7 +139,7 @@ function [skinspostdata,prizes,outcomenumbers] = tradeuplogic(skindata,avgfloat)
     celltradeupwears = cellstr(tradeupwears);
     tradeupwearssize = size(tradeupwears);
     outcomenumbers = tradeupwearssize(1);
-    prizes = cell(outcomenumbers*9-1,1);
+    prices = cell(outcomenumbers*9-1,1);
     celloutcomefloats = cellstr(num2str(outcomefloats,'%.4f'));
     n = 1;
     for i = 1:length(tradeupskinsc)
@@ -152,17 +152,17 @@ function [skinspostdata,prizes,outcomenumbers] = tradeuplogic(skindata,avgfloat)
             l = 1;
             for j = 1:5
                 if isempty(wears{j}) == 0
-                    marketprize = individualskin{m};
-                    opprize = individualskin{m+1};
-                    prizes{k} = individualskin{n};
-                    prizes{k+1} = individualskin{n+1};
-                    prizes{k+2} = individualskin{n+2};
-                    prizes{k+3} = individualskin{n+3};
-                    prizes{k+4} = celloutcomefloats{l};
-                    prizes{k+5} = celltradeupwears{l};
-                    prizes{k+6} = marketprize;
-                    prizes{k+7} = opprize;
-                    prizes{k+8} = '';
+                    marketprice = individualskin{m};
+                    opprice = individualskin{m+1};
+                    prices{k} = individualskin{n};
+                    prices{k+1} = individualskin{n+1};
+                    prices{k+2} = individualskin{n+2};
+                    prices{k+3} = individualskin{n+3};
+                    prices{k+4} = celloutcomefloats{l};
+                    prices{k+5} = celltradeupwears{l};
+                    prices{k+6} = marketprice;
+                    prices{k+7} = opprice;
+                    prices{k+8} = '';
                     m = m + 2;
                     k = k + 9;
                     l = l + 1;
@@ -176,20 +176,20 @@ function [skinspostdata,prizes,outcomenumbers] = tradeuplogic(skindata,avgfloat)
             m = 7;
             for j = 1:5
                 if isempty(wears{j}) == 0
-                    marketprize = individualskin{m};
-                    opprize = individualskin{m+1};
-                    prizes{end-7} = individualskin{1};
-                    prizes{end-6} = individualskin{2};
-                    prizes{end-5} = individualskin{3};
-                    prizes{end-4} = individualskin{4};
-                    prizes{end-3} = celloutcomefloats{end};
-                    prizes{end-2} = celltradeupwears{end};
-                    prizes{end-1} = marketprize;
-                    prizes{end} = opprize;
+                    marketprice = individualskin{m};
+                    opprice = individualskin{m+1};
+                    prices{end-7} = individualskin{1};
+                    prices{end-6} = individualskin{2};
+                    prices{end-5} = individualskin{3};
+                    prices{end-4} = individualskin{4};
+                    prices{end-3} = celloutcomefloats{end};
+                    prices{end-2} = celltradeupwears{end};
+                    prices{end-1} = marketprice;
+                    prices{end} = opprice;
                     m = m + 2;
                 end
             end
         end
     end
-    skinspostdata = char(prizes);
+    skinspostdata = char(prices);
 end
