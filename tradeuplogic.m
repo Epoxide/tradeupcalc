@@ -156,38 +156,39 @@ function [skinspostdata,prices,outcomenumbers] = tradeuplogic(skindata,avgfloat)
     prices = cell(outcomenumbers*9-1,1);
     celloutcomefloats = cellstr(num2str(outcomefloats,'%.4f'));
     n = 1;
+    o = 1;
+    k = 1;
     for i = 1:length(tradeupskinsc)
         tf = strcmp(tradeupskinsc{i}, char(10));
         if tf == 1
             skinend = i;
             individualskin = tradeupskinsc(n:skinend-1);
             m = 7;
-            k = 1;
             l = 1;
-            for j = 1:5
+            for j = o:o+4
                 if isempty(wears{j}) == 0
                     marketprice = individualskin{m};
                     opprice = individualskin{m+1};
-                    prices{k} = individualskin{n};
-                    prices{k+1} = individualskin{n+1};
-                    prices{k+2} = individualskin{n+2};
-                    prices{k+3} = individualskin{n+3};
+                    prices{k} = individualskin{1};
+                    prices{k+1} = individualskin{2};
+                    prices{k+2} = individualskin{3};
+                    prices{k+3} = individualskin{4};
                     prices{k+4} = celloutcomefloats{l};
                     prices{k+5} = celltradeupwears{l};
                     prices{k+6} = marketprice;
                     prices{k+7} = opprice;
-                    prices{k+8} = '';
-                    m = m + 2;
+                    prices{k+8} = char(10);
                     k = k + 9;
                     l = l + 1;
                 end
             end
             n = skinend + 1;
+            o = o + 5;
         end
         if i == length(tradeupskinsc)
             individualskin = tradeupskinsc(n:end);
             m = 7;
-            for j = 1:5
+            for j = o:o+4
                 if isempty(wears{j}) == 0
                     marketprice = individualskin{m};
                     opprice = individualskin{m+1};
